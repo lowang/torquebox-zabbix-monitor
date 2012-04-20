@@ -14,6 +14,7 @@ jobs:
     description:  "get stats and push them to zabbix server"
     job:          MonitoringJob
     cron:         '0 */5 * * * ?'
+    singleton:    false
     config:
       host: 'zabbix.nokaut'
       port: '20051'
