@@ -1,0 +1,20 @@
+web:
+  context: /monitoring
+
+tasks:
+  Backgroundable:
+    concurrency: 0
+
+ruby:
+  version: 1.9
+  compile_mode: force
+
+jobs:
+  data_import:
+    description:  "pobierz statsy i wyslij je do zabbixa"
+    job:          MonitoringJob   # Metodę MonitoringJob#run
+    cron:         '*/10 * * * * ?' # wykonaj co 5 minut
+    config:
+      host: 'zabbix.nokaut'
+      port: '20051'
+      debug: false
