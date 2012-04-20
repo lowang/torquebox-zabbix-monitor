@@ -29,10 +29,18 @@ class MonitoringJob
 
   end
 
+  def self.hostname
+    unless ENV['ZABBIX_STRIP_HOST'].nil?
+      Socket.gethostname.gsub(ENV['ZABBIX_STRIP_HOST'],'')
+    else
+      Socket.gethostname
+    end
+  end
+
   private
 
   def hostname
-    Socket.gethostname
+    @hostname ||= self.class.hostname
   end
 
 end

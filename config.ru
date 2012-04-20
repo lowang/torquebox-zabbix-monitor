@@ -1,7 +1,7 @@
 require ::File.expand_path('../config/environment',  __FILE__)
 
 app = lambda do |env|
-  json_stats = { 'hostname' => Socket.gethostname }
+  json_stats = { 'hostname' => MonitoringJob.hostname }
   tb_stats = TorqueboxStatsMonitor.new
   [ :get_threads_stats, :get_memory_stats, :get_classes_stats].each do |method|
     tb_stats.send(method).each do |key,value|
