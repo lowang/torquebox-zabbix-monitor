@@ -22,8 +22,10 @@ class TorqueboxStatsMonitor
   # https://github.com/nicksieger/advent-jruby
   def get_memory_stats
     memory = @jmx_server["java.lang:type=Memory"]
-    { :'torquebox.heap_memory_usage' => memory.heap_memory_usage.used,
-      :'torquebox.non_heap_memory_usage' => memory.non_heap_memory_usage.used }
+    memory_pool = @jmx_server["java.lang:type=MemoryPool,name=PS Perm Gen"]
+    { :'torquebox.memory.heap_usage' => memory.heap_memory_usage.used,
+      :'torquebox.memory.non_heap_usage' => memory.non_heap_memory_usage.used,
+      :'torquebox.memory.perm_gen_usage' => memory_pool.usage.used }
   end
 
   def get_threads_stats
