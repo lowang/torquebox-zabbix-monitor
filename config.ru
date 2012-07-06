@@ -1,10 +1,9 @@
 require ::File.expand_path('../config/environment',  __FILE__)
-require 'monitoring_job'
 
 app = lambda do |env|
-  json_stats = { 'hostname' => MonitoringJob.hostname }
+  json_stats = {'hostname' => MonitoringJob.hostname}
   tb_stats = TorqueboxStatsMonitor.new
-  [ :get_threads_stats, :get_memory_stats, :get_classes_stats].each do |method|
+  [:get_threads_stats, :get_memory_stats, :get_classes_stats].each do |method|
     tb_stats.send(method).each do |key,value|
       json_stats[key.to_s] = value
     end
@@ -16,6 +15,9 @@ app = lambda do |env|
       json_stats[queue.to_s + '.' + key.to_s] = value
     end
   end
-  [200, { 'Content-Type' => 'application/json' }, json_stats.to_json]
+  [200, { 'Content-Type' => 'application/json' }, [json_stats.to_json]]
 end
+
+map "/ping" do; run proc {|env| [200, {"Content-Type" => "text/plain"}, ['pong']] }; end
 run app
+

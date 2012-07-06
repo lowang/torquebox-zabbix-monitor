@@ -6,7 +6,7 @@ class MonitoringJob
     @options = options
   end
 
-  def run()
+  def run
     zabbix = Zabbixx_Sender.new(@options['host'], @options['port'])
     tb_stats = TorqueboxStatsMonitor.new
 

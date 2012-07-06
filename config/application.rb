@@ -13,5 +13,9 @@ require 'destinations/models/destination'
 require 'destinations/models/queue'
 require 'destinations/models/topic'
 require 'destinations/models/message'
+
+$: << File.expand_path('../../lib', __FILE__)
+
 require 'zabbix_sender'
 require 'torquebox_stats_monitor'
+require 'monitoring_job'
