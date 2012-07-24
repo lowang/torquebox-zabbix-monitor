@@ -11,10 +11,14 @@ ruby:
 
 jobs:
   data_import:
-    description:  "pobierz statsy i wyslij je do zabbixa"
-    job:          MonitoringJob   # Metodę MonitoringJob#run
-    cron:         '*/10 * * * * ?' # wykonaj co 5 minut
+    description:  "get stats and push them to zabbix server"
+    job:          MonitoringJob
+    cron:         '0 */5 * * * ?'
+    singleton:    false
     config:
       host: 'zabbix.nokaut'
       port: '20051'
       debug: false
+
+environment:
+  ZABBIX_STRIP_HOST: .nokaut
