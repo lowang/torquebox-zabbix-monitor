@@ -10,7 +10,7 @@ class MonitoringJob
     zabbix = Zabbixx_Sender.new(@options['host'], @options['port'])
     tb_stats = TorqueboxStatsMonitor.new
 
-    [ :get_threads_stats, :get_memory_stats, :get_classes_stats].each do |method|
+    [ :get_threads_stats, :get_memory_stats, :get_classes_stats, :get_deployment_descriptors, :get_os_stats].each do |method|
       begin
         tb_stats.send(method).each do |key,value|
           zabbix.send(hostname, key.to_s, value.to_s, @options['debug'])
