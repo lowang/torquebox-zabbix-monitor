@@ -10,7 +10,7 @@ ruby:
   compile_mode: force
 
 jobs:
-  data_import:
+  monitoring.get_stats:
     description:  "get stats and push them to zabbix server"
     job:          MonitoringJob
     cron:         '0 */5 * * * ?'
