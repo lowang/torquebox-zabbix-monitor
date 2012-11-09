@@ -17,8 +17,8 @@ class MonitoringJob
 
       tb_stats.get_queue_stats.each do |queue,stats|
         stats.each do |key,value|
-          send queue + '.' + key, value
-          send queue + '.' + key + '_rate', value if key.to_s == 'messages_added'
+          send "#{queue}.#{key}", value
+          send "#{queue}.#{key}_rate", value if key.to_s == 'messages_added'
         end
       end
     end
