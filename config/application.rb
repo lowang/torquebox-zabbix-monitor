@@ -4,7 +4,7 @@ if defined?(Bundler)
   Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 end
 
-require "socket"
+require 'socket'
 require 'active_support/all'
 require 'resource'
 require 'has_mbean'
@@ -19,3 +19,4 @@ $: << File.expand_path('../../lib', __FILE__)
 require 'zabbix_sender'
 require 'torquebox_stats_monitor'
 require 'monitoring_job'
+
