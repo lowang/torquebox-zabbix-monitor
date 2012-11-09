@@ -6,22 +6,24 @@ class MonitoringJob
   end
 
   def run
-    zabbix = Zabbixx_Sender.new(@options['host'], @options['port'])
     tb_stats = TorqueboxStatsMonitor.new
 
-    [:get_threads_stats, :get_memory_stats, :get_classes_stats, :get_deployment_descriptors, :get_os_stats].each do |method|
-      tb_stats.send(method).each do |key,value|
-        zabbix.send(hostname, key.to_s, value.to_s, @options['debug'])
+    response = Zabbix::Sender18.send(hostname, @options['host'], @options['port']) do
+      [:get_threads_stats, :get_memory_stats, :get_classes_stats, :get_deployment_descriptors, :get_os_stats].each do |method|
+        tb_stats.send(method).each do |key,value|
+          send key, value
+        end
+      end
+
+      tb_stats.get_queue_stats.each do |queue,stats|
+        stats.each do |key,value|
+          send queue + '.' + key, value
+          send queue + '.' + key + '_rate', value if key.to_s == 'messages_added'
+        end
       end
     end
 
-    # queues
-    tb_stats.get_queue_stats.each do |queue,stats|
-      stats.each do |key,value|
-        zabbix.send(hostname, queue.to_s + '.' + key.to_s, value.to_s, @options['debug'])
-        zabbix.send(hostname, queue.to_s + '.' + key.to_s + '_rate', value.to_s, @options['debug']) if key.to_s == 'messages_added'
-      end
-    end
+    puts response if @options['debug']
   end
 
   def self.hostname

@@ -7,7 +7,7 @@ require 'base64'
 # and you risk tying up resources on the Zabbix server
 # if you keep the connection open for too long.
 # -- http://www.zabbix.com/wiki/doc/tech/proto/zabbixsenderprotocol
-class Zabbixx_Sender
+class ZabbixSender14
   def initialize(host,port)
     @host = host; @port = port
   end

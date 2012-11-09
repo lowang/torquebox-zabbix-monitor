@@ -16,7 +16,8 @@ require 'destinations/models/message'
 
 $: << File.expand_path('../../lib', __FILE__)
 
-require 'zabbix_sender'
+require 'zabbix_sender14'
+require 'zabbix_sender18'
 require 'torquebox_stats_monitor'
 require 'monitoring_job'
 

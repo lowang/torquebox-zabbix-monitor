@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class TorqueboxStatsMonitor
   def initialize
     @jmx_server = JMX::MBeanServer.new

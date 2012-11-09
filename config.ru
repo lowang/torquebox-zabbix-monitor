@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require ::File.expand_path('../config/environment',  __FILE__)
 
 app = lambda do |env|
@@ -15,9 +17,11 @@ app = lambda do |env|
       json_stats[queue.to_s + '.' + key.to_s] = value
     end
   end
-  [200, { 'Content-Type' => 'application/json' }, [json_stats.to_json]]
+  [200, {'Content-Type' => 'application/json'}, [json_stats.to_json]]
 end
 
-map "/ping" do; run proc {|env| [200, {"Content-Type" => "text/plain"}, ['pong']] }; end
+map '/ping' do
+  run proc {|env| [200, {'Content-Type' => 'text/plain'}, ['pong']] }
+end
 run app
 
