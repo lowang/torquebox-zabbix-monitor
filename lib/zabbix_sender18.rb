@@ -22,10 +22,6 @@ class ZabbixSender18
     load_conf conf
   end
 
-  private_class_method :new
-
-  private
-
   def to(host, &blk)
     raise ArgumentError, "need block" unless block_given?
     begin
