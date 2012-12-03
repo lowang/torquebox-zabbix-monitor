@@ -13,7 +13,8 @@ class TorqueboxStatsMonitor
         message_count:    destination.message_count,
         delivering_count: destination.delivering_count,
         scheduled_count:  destination.scheduled_count,
-        messages_added:   destination.messages_added
+        messages_added:   destination.messages_added,
+        consumer_count:   destination.consumer_count
       }
     end
     queue_stats
