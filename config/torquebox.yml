@@ -16,7 +16,7 @@ jobs:
     cron:         '0 */5 * * * ?'
     singleton:    false
     config:
-      host: 'zabbix.nokaut'
+      host: 'zabbix'
       port: '20051'
       debug: false
 
